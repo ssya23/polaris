@@ -11,6 +11,8 @@
 #include "vll.h"
 #include "aria.h"
 
+void print_wait_die_stats();
+
 void * f(void *);
 
 thread_t ** m_thds;
@@ -142,6 +144,9 @@ int main(int argc, char* argv[])
 		printf("PASS! SimTime = %ld\n", endtime - starttime);
 		if (STATS_ENABLE)
 			stats.print();
+#if CC_ALG == WAIT_DIE
+		print_wait_die_stats();
+#endif
 	} else {
 		((TestWorkload *)m_wl)->summarize();
 	}

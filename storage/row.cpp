@@ -328,6 +328,9 @@ RC row_t::get_row(access_t type, txn_man * txn, row_t *& row, Access * access) {
     }
     endtime = get_sys_clock();
     INC_TMP_STATS(thd_id, time_wait, endtime - starttime);
+#if CC_ALG == WAIT_DIE
+    wd_record_wait(thd_id, lt, access->lock_entry);
+#endif
   } else if (rc == FINISH) {
     // RAW optimization, need to return data for read
   }

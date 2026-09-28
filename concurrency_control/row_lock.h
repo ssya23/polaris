@@ -8,9 +8,19 @@ struct LockEntry {
     lock_status status;
     LockEntry * next;
     LockEntry * prev;
+    uint64_t wd_wait_start = 0;
+    uint64_t wd_phase_start = 0;
+    uint64_t wd_nonhead_time = 0;
+    uint64_t wd_head_time = 0;
+    uint64_t wd_grant_time = 0;
+    uint64_t wd_head_lost = 0;
+    bool wd_at_head = false;
     LockEntry(txn_man * t, Access * a): txn(t), access(a), type(LOCK_NONE),
                                         status(LOCK_DROPPED), next(NULL), prev(NULL) {};
 };
+
+void wd_record_wait(uint64_t thd_id, lock_t type, LockEntry * entry);
+void print_wait_die_stats();
 
 class Row_lock {
   public:

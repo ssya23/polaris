@@ -126,17 +126,17 @@ void Stats::print() {
   ALL_METRICS(INIT_TOTAL_VAR, INIT_TOTAL_VAR, INIT_TOTAL_VAR)
   for (uint64_t tid = 0; tid < g_thread_cnt; tid++) {
     ALL_METRICS(SUM_UP_STATS, SUM_UP_STATS, MAX_STATS)
-    printf("[tid=%lu] txn_cnt=%lu, abort_cnt=%lu, user_abort_cnt=%lu\n",
-        tid, _stats[tid]->txn_cnt, _stats[tid]->abort_cnt,
-        _stats[tid]->user_abort_cnt);
+    // printf("[tid=%lu] txn_cnt=%lu, abort_cnt=%lu, user_abort_cnt=%lu\n",
+    //     tid, _stats[tid]->txn_cnt, _stats[tid]->abort_cnt,
+    //     _stats[tid]->user_abort_cnt);
   }
-  for (uint64_t tid = 0; tid < g_thread_cnt; tid++) {
-    for (uint32_t p = 0; p < SILO_PRIO_NUM_PRIO_LEVEL; ++p) {
-      char tag_buf[40];
-      sprintf(tag_buf, "[tid=%ld,prio=%d]", tid, p);
-      _stats[tid]->prio_metrics[p].print(tag_buf);
-    }
-  }
+  // for (uint64_t tid = 0; tid < g_thread_cnt; tid++) {
+  //   for (uint32_t p = 0; p < SILO_PRIO_NUM_PRIO_LEVEL; ++p) {
+  //     char tag_buf[40];
+  //     sprintf(tag_buf, "[tid=%ld,prio=%d]", tid, p);
+  //     _stats[tid]->prio_metrics[p].print(tag_buf);
+  //   }
+  // }
   total_latency = total_latency / total_txn_cnt;
   total_commit_latency = total_commit_latency / total_txn_cnt;
   total_time_man = total_time_man - total_time_wait;
